@@ -6,7 +6,7 @@ const thoughtSchema = new mongoose.Schema({
         required: true,
     },
     createdAt: {
-        trpe: Date,
+        type: Date,
         default: Date.now,
     },
     author: {

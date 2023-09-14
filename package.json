@@ -4,12 +4,13 @@
     "mongoose": "^7.5.1"
   },
   "name": "social-network-api",
-  "description": "1. Clone repo in local environment.\r     2. User must have mongodb installed.\r     3. Run these commands in VSCode command line:\r         - npm init -y\r         - npm install express\r         - npm install mongoose\r         - npm install moment\r     4. Start the server by running the following in VSCode command line:\r         - npm start\r     5. Use Insomnia to test routes are working as intended.",
+  "description": "",
   "version": "1.0.0",
   "main": "index.js",
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "author": "",
   "license": "ISC"

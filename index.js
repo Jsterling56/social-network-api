@@ -3,8 +3,9 @@ const mongoose = require('mongoose');
 const app = express();
 const port = process.env.PORT || 3000;
 
-const userRoutes = require('.src/routes/userRoutes');
-const postRoutes = require('./src/routes/postRoutes');
+const userRoutes = require('./src/routes/userRoutes');
+const thoughtRoutes = require('./src/routes/thoughtRoutes');
+const reactionRoutes = require('./src/routes/reactionRoutes');
 
 mongoose.connect('mongodb://localhost:27017/my-social-network', {
     useNewUrlParser: true,
@@ -22,7 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/users', userRoutes);
 app.use('/api/thoughts', thoughtRoutes);
-app.use('/api/reactions', reactioRoutes);
+app.use('/api/reactions', reactionRoutes);
 
 app.use((err, req, res, next) => {
     console.error(err.stack);

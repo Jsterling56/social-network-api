@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const User = require('..models/thought');
+// const User = require('..models/thought.js');
 
 // create new thought - post
-route.post('/', async (req, res) => {
+router.post('/', async (req, res) => {
     try {
         const { content, author } = req.body;
 
@@ -60,7 +60,20 @@ router.delete('/:thoughtId', async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: 'Internal Server Error' });
     }
-})
+});
+
+//get a single thought by ID
+router.get('/thoughts/:thoughtId', async (req, res) => {
+    try {
+        const thought = await Thought.findById(req.params.thoughtId);
+        if (!thought) {
+            return res.status(404).json({ error: 'Thought not found' });
+        }
+        res.json(thought);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error' })
+    }
+});
 
 
 module.exports = router;

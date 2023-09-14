@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const User = require('..models/user');
+const User = require('../models/user');
+const mongoose = require('mongoose');
+
 
 //create a new user - POST
 router.post('/', async (req, res) => {
@@ -62,20 +64,43 @@ router.get('/users', async (req, res) => {
     }
 });
 
-
-
-//get a single thought by ID
-router.get('/thoughts/:thoughtId', async (req, res) => {
+// add a friend to a user's friend list
+router.post('/:userID/addFriend/:friendId', async (req, res) => {
     try {
-        const thought = await Thought.findById(req.params.thoughtId);
-        if (!thought) {
-            return res.status(404).json({ error: 'Thought not found' });
+        const { userId, friendId } = req.params;
+        const user = await User.findById(userId);
+        const friend = await User.findById(friendId);
+
+        if (!user || !friend) {
+            return res.status(404).json({ error: 'User or friend not found' });
         }
-        res.json(thought);
+        user.friends.push(friendId);
+        await user.save();
+        res.json(user);
     } catch (error) {
-        res.status(500).json({ error: 'Internal server error' })
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
+// remove a friend from a user's friend list
+router.delete('/:userId/removeFriend/:friendId', async (req, res) => {
+    try {
+        const { userId, friendId } = req.params;
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+        user.friends = user.friends.filter((friend) => friend.toString() !== friendId);
+        await user.save();
+        res.json(user);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+
+
+
 
 
 module.exports = router;
