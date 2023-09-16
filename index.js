@@ -12,9 +12,9 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/socialmed
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/api/users', userRoutes);
-app.use('/api/thoughts', thoughtRoutes);
-app.use('/api/reactions', reactionRoutes);
+app.use('/', userRoutes);
+app.use('/', thoughtRoutes);
+app.use('/', reactionRoutes);
 
 app.use((err, req, res, next) => {
     console.error(err.stack);

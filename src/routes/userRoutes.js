@@ -45,7 +45,7 @@ router.get('/api/users/:userId', async (req, res) => {
 });
 
 // update a user by ID - PUT
-router.put('/:userId', async (req, res) => {
+router.put('/api/update/:userId', async (req, res) => {
     try {
         const { username, email } = req.body;
         const { userId } = req.params;
@@ -65,7 +65,7 @@ router.put('/:userId', async (req, res) => {
 });
 
 // delete a user by ID
-router.delete('/:userId', async (req, res) => {
+router.delete('/api/deleteUser/:userId', async (req, res) => {
     try {
         const { userId } = req.params;
         const deletedUser = await User.findByIdAndRemove(userId);
@@ -82,7 +82,7 @@ router.delete('/:userId', async (req, res) => {
 
 
 // add a friend to a user's friend list
-router.post('/:userID/addFriend/:friendId', async (req, res) => {
+router.post('/api/:userID/addFriend/:friendId', async (req, res) => {
     try {
         const { userId, friendId } = req.params;
         const user = await User.findById(userId);
