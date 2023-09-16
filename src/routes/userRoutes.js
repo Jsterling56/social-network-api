@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 
 
 //create a new user - POST
-router.post('/', async (req, res) => {
+router.post('/api/users/create', async (req, res) => {
     try {
         const { username, email } = req.body;
         const newUser = new User({
@@ -16,6 +16,31 @@ router.post('/', async (req, res) => {
         res.status(201).json(savedUser);
     } catch (error) {
         res.status(400).json({ error: 'Bad request' });
+    }
+});
+
+//get all users - GET
+router.get('/api/users', async (req, res) => {
+    try {
+        const users = await User.find();
+        res.json(users);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+//get user by ID - GET
+router.get('/api/users/:userId', async (req, res) => {
+    try{
+        const { userId } = req.params;
+        const user = await User.findById(userId);
+
+        if(!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+        res.json(user);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 });
 
@@ -54,15 +79,7 @@ router.delete('/:userId', async (req, res) => {
 });
 
 
-//get all users - GET
-router.get('/users', async (req, res) => {
-    try {
-        const users = await User.find();
-        res.json(users);
-    } catch (error) {
-        res.status(500).json({ error: 'Internal server error' });
-    }
-});
+
 
 // add a friend to a user's friend list
 router.post('/:userID/addFriend/:friendId', async (req, res) => {
@@ -97,11 +114,6 @@ router.delete('/:userId/removeFriend/:friendId', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
-
-
-
-
-
 
 module.exports = router;
 

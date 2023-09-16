@@ -7,16 +7,7 @@ const userRoutes = require('./src/routes/userRoutes');
 const thoughtRoutes = require('./src/routes/thoughtRoutes');
 const reactionRoutes = require('./src/routes/reactionRoutes');
 
-mongoose.connect('mongodb://localhost:27017/my-social-network', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-});
-
-mongoose.connection.on('connected', () =>{
-    console.log('Connected to mongodb');
-});
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/socialmedia');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
