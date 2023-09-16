@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Thought = require('./models/thought.js');
+const Thought = require('../models/thought.js');
 
 // create new thought - post
 router.post('/api/thought/create', async (req, res) => {

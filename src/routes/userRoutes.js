@@ -82,7 +82,7 @@ router.delete('/api/deleteUser/:userId', async (req, res) => {
 
 
 // add a friend to a user's friend list
-router.post('/api/addFriend/:userID/:friendId', async (req, res) => {
+router.post('/:userId/addFriend/:friendId', async (req, res) => {
     try {
         const { userId, friendId } = req.params;
         const user = await User.findById(userId);
