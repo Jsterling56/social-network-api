@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-// const User = require('..models/thought.js');
+const Thought = require('..models/thought.js');
 
 // create new thought - post
-router.post('/', async (req, res) => {
+router.post('/api/thought/create', async (req, res) => {
     try {
         const { content, author } = req.body;
 
@@ -19,7 +19,7 @@ router.post('/', async (req, res) => {
 });
 
 // get all thoughts - get
-router.get('/thoughts', async (req, res) => {
+router.get('/api/thoughts', async (req, res) => {
     try {
         const thoughts = await Thought.find();
         res.json(thoughts);
@@ -29,7 +29,7 @@ router.get('/thoughts', async (req, res) => {
 });
 
 // update thought by id - put
-router.put('/:thoughtId', async (req, res) => {
+router.put('/api/update/:thoughtId', async (req, res) => {
     try {
         const { content } = req.body;
         const { thoughtId } = req.params;
@@ -49,7 +49,7 @@ router.put('/:thoughtId', async (req, res) => {
 });
 
 // delete thought by id - delete
-router.delete('/:thoughtId', async (req, res) => {
+router.delete('/api/deleteThought/:thoughtId', async (req, res) => {
     try {
         const { thoughtId } = req.params;
         const deletedThought = await Thought.findByIdAndRemove(thoughtId);
@@ -63,7 +63,7 @@ router.delete('/:thoughtId', async (req, res) => {
 });
 
 //get a single thought by ID
-router.get('/thoughts/:thoughtId', async (req, res) => {
+router.get('/api/thoughts/:thoughtId', async (req, res) => {
     try {
         const thought = await Thought.findById(req.params.thoughtId);
         if (!thought) {

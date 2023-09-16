@@ -3,7 +3,7 @@ const router = express.Router();
 const Thought = require('../models/thought');
 
 //create a reaction - post
-router.post('/thoughts/:thoughtId/reactions', async (req, res) => {
+router.post('/api/thoughts/:thoughtId/reactions', async (req, res) => {
     try {
         const { type } = req.body;
         const { thoughtId } = req.params;
@@ -21,7 +21,7 @@ router.post('/thoughts/:thoughtId/reactions', async (req, res) => {
 });
 
 // delete a reactionby ID - delete
-router.delete( '/thoughts/:thoughtId/reactions/reactionId', async (req, res) => {
+router.delete( '/api/thoughts/:thoughtId/reactions/reactionId', async (req, res) => {
     try {
         const { thoughtId, reactionId } = req.params;
         
