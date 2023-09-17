@@ -61,19 +61,6 @@ router.put('/api/update/:thoughtId', async (req, res) => {
     }
 });
 
-// delete thought by id - delete
-router.delete('/api/deleteThought/:thoughtId', async (req, res) => {
-    try {
-        const { thoughtId } = req.params;
-        const deletedThought = await Thought.findByIdAndRemove(thoughtId);
-        if (!deletedThought) {
-            return res.status(404).json({ error: 'Thought not found' });
-        }
-        res.json(deletedThought);
-    } catch (error) {
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
 
 //get a single thought by ID
 router.get('/api/thoughts/:thoughtId', async (req, res) => {
