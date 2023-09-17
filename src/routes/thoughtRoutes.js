@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Thought = require('../models/Thought.js');
+const User = require('../models/user.js');
 
 // create new thought - post
 router.post('/api/thought/create', async (req, res) => {
@@ -25,6 +26,7 @@ router.post('/api/thought/create', async (req, res) => {
         await user.save();
         res.status(201).json(savedThought);
     } catch (error) {
+        console.log(error)
         res.status(500).json({ error: 'Internal server error' });
     }
 });

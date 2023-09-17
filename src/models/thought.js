@@ -9,8 +9,8 @@ const thoughtSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
-    author: {
-        type: mongoose.Schema.Types.ObjectId,
+    username: {
+        type: mongoose.Schema.Types.String,
         ref: 'User',
         required: true,
     },
