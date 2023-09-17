@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Thought = require('../models/thought');
+const Reaction = require('../models/reaction');
 
 //create a reaction - post
 router.post('/api/thoughts/:thoughtId/reactions', async (req, res) => {

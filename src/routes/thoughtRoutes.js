@@ -1,20 +1,31 @@
 const express = require('express');
 const router = express.Router();
-const Thought = require('../models/thought.js');
+const Thought = require('../models/Thought.js');
 
 // create new thought - post
 router.post('/api/thought/create', async (req, res) => {
     try {
-        const { content, author } = req.body;
+        const { content, username } = req.body;
+        if (!content || !username ) {
+            return res.status(400).json({ error: 'Missing content or user' });
+        }
+        const user = await User.findOne({ username });
+        if (!user) {
+            return res.status(400).json({ error: 'Missing user'});
+        }
 
         const newThought = new Thought({
             content,
-            author,
+            username,
         });
+
+        user.thoughts.push(newThought);
+
         const savedThought = await newThought.save();
+        await user.save();
         res.status(201).json(savedThought);
     } catch (error) {
-        res.status(400).json({ error: 'Bad Request' });
+        res.status(500).json({ error: 'Internal server error' });
     }
 });
 
