@@ -1,18 +1,18 @@
 const express = require('express');
 const router = express.Router();
-const Reaction = require('../models/reaction');
+const Thought = require('../models/Thought');
 
 //create a reaction - post
 router.post('/api/thoughts/:thoughtId/reactions', async (req, res) => {
     try {
-        const { type } = req.body;
+        const { reactionBody, username } = req.body;
         const { thoughtId } = req.params;
 
         const thought = await Thought.findById(thoughtId);
         if (!thought) {
             return res.status(404).json({ error: 'Thought not found' });
         }
-        thought.reactions.push({ type });
+        thought.reactions.push({ reactionBody, username });
         await thought.save();
         res.status(201).json(thought);
     } catch (error) {
@@ -21,7 +21,7 @@ router.post('/api/thoughts/:thoughtId/reactions', async (req, res) => {
 });
 
 // delete a reactionby ID - delete
-router.delete( '/api/thoughts/:thoughtId/reactions/reactionId', async (req, res) => {
+router.delete( '/api/thoughts/:thoughtId/reactions/:reactionId', async (req, res) => {
     try {
         const { thoughtId, reactionId } = req.params;
         

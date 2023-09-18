@@ -41,27 +41,6 @@ router.get('/api/thoughts', async (req, res) => {
     }
 });
 
-// update thought by id - put
-router.put('/api/update/:thoughtId', async (req, res) => {
-    try {
-        const { content } = req.body;
-        const { thoughtId } = req.params;
-
-        const updatedThought = await Thought.findByIdAndUpdate(
-            thoughtId,
-            { content },
-            { new: true },
-        );
-        if (!updatedThought) {
-            return res.status(404).json({ error: 'Thought not found' });
-        }
-        res.json(updatedThought);
-    } catch (error) {
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
-
-
 //get a single thought by ID
 router.get('/api/thoughts/:thoughtId', async (req, res) => {
     try {
