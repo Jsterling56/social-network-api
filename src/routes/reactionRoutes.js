@@ -8,14 +8,16 @@ router.post('/api/thoughts/:thoughtId/reactions', async (req, res) => {
         const { reactionBody, username } = req.body;
         const { thoughtId } = req.params;
 
-        const thought = await Thought.findById(thoughtId);
+        const thought = await Thought.findByIdAndUpdate(thoughtId, { $addToSet: { reactions: reactionBody, username: username } });
         if (!thought) {
             return res.status(404).json({ error: 'Thought not found' });
         }
-        thought.reactions.push({ reactionBody, username });
+        
+
         await thought.save();
         res.status(201).json(thought);
     } catch (error) {
+        console.log(error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });

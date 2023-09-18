@@ -14,6 +14,11 @@ const thoughtSchema = new mongoose.Schema({
         ref: 'User',
         required: true,
     },
+    reactions: [{
+        type: mongoose.Schema.Types.String,
+        ref: 'Reaction',
+
+    }],
 });
 
 module.exports = mongoose.model('Thought', thoughtSchema);
